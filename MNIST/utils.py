@@ -113,7 +113,8 @@ def runmain(rank, model, trainset, testset, world_size, n_epochs):
     # find_unused_parameters=True instructs DDP to find unused output of the forward() function of any module in the model
     model = DDP(model, device_ids=[rank])#, output_device=rank, find_unused_parameters=True)
 
-    optimizer = optim.SGD(model.parameters(), lr=learning_rate/2, momentum=momentum)
+    #optimizer = optim.SGD(model.parameters(), lr=learning_rate/2, momentum=momentum)
+    optimizer = optim.Adam(model.parameters())
 
     #Logging with tensorboard
     from torch.utils.tensorboard import SummaryWriter
